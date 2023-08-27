@@ -1,5 +1,11 @@
+--  @block
+SHOW DATABASES;
+
+--  @block
+CREATE DATABASE testDB;
+
 -- @block
-USE TEST;
+USE testDB;
 
 -- @block
 SHOW TABLES;
@@ -8,7 +14,7 @@ SHOW TABLES;
 DROP TABLE testDB;
 
 -- @block 
-CREATE TABLE testDB (
+CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
@@ -16,10 +22,10 @@ CREATE TABLE testDB (
 );
 
 -- @block 
-INSERT INTO testDB (first_name, last_name) VALUES (
-    "Mathew",
-    "B"
-);
+INSERT INTO users (first_name, last_name) VALUES ("Mathew", "B");
 
 -- @block
-SELECT * FROM testDB;
+SELECT * FROM users;
+
+--  @block
+DROP DATABASE testDB;

@@ -4,7 +4,10 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
 // Routes imports
-import authRouter from "./routes/auth";
+import authRouter from "./routes/auth.js";
+
+// Database imports
+import { getAllUsers } from "./database/utils.js";
 
 dotenv.config();
 

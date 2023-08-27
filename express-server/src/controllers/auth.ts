@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { LoginDataType, SignupDataType } from "./requestDataTypes";
+import { LoginDataType, SignupDataType } from "./requestDataTypes.js";
 
 export const loginController = (req: Request, res: Response) => {
   const loginReqData = req.body as LoginDataType;
