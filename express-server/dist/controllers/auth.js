@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.signupController = exports.loginController = void 0;
-const loginController = (req, res) => {
+import { createUser, getUserById } from "../database/utils.js";
+export const postLoginController = async (req, res) => {
     const loginReqData = req.body;
     if (!loginReqData.email) {
         const errorMessage = "Log in error, email is missing";
@@ -13,11 +11,21 @@ const loginController = (req, res) => {
         console.error(errorMessage);
         return res.status(500).json(errorMessage);
     }
+    if (!loginReqData.id) {
+        const errorMessage = "Log in error, id is missing";
+        console.error(errorMessage);
+        return res.status(500).json(errorMessage);
+    }
+    const userData = (await getUserById(+loginReqData.id));
+    if (userData.password !== loginReqData.password) {
+        const errorMessage = "Log in error, wrong password";
+        console.error(errorMessage);
+        return res.status(500).json(errorMessage);
+    }
     console.log("Log in successful");
-    res.json(loginReqData);
+    res.json(userData);
 };
-exports.loginController = loginController;
-const signupController = (req, res) => {
+export const postSignupController = async (req, res, next) => {
     const signupReqData = req.body;
     if (!signupReqData.email) {
         const errorMessage = "Sign up error, email is missing";
@@ -39,7 +47,12 @@ const signupController = (req, res) => {
         console.error(errorMessage);
         return res.status(500).json(errorMessage);
     }
-    console.log("Sign up successful");
-    res.json(signupReqData);
+    createUser(signupReqData.firstName, signupReqData.lastName, signupReqData.email, signupReqData.password)
+        .then((createUserResponse) => {
+        console.log("Sign up successful");
+        res.status(201).json(createUserResponse);
+    })
+        .catch((err) => {
+        return next(err);
+    });
 };
-exports.signupController = signupController;

@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class User {
+export default class User {
     constructor(id, email, password, firstName, lastName) {
         this.id = id;
         this.email = email;
@@ -16,4 +14,3 @@ class User {
         this.saveToDb();
     }
 }
-exports.default = User;

@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+import Signup from "@/components/sign-up";
 
 function App() {
   return (
     <>
-      <div className="flex flex-col gap-4 p-8 items-center">
-        AuthKit App
-        <Button>Get Started</Button>
+      <div className="max-w-lg mx-auto px-8 py-10 space-y-4">
+        <p>AuthKit App</p>
+        <Signup />
       </div>
     </>
   );
