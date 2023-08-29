@@ -23,11 +23,15 @@ const signupFormSchema = z.object({
       message: "Username must be at least 2 characters",
     })
     .max(50),
-  emailAddress: z.string(),
-  password: z.string(),
+  emailAddress: z.string().min(1, {
+    message: "Email is required.",
+  }),
+  password: z.string().min(5, {
+    message: "Password must be at least 5 characters.",
+  }),
   phoneNumber: z.string().optional(),
   emailNotifications: z.boolean().default(true),
-  acceptTerms: z.boolean().default(false),
+  acceptTerms: z.boolean(),
 });
 
 function Signup() {
@@ -87,7 +91,7 @@ function Signup() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="password" {...field} />
               </FormControl>
               <FormDescription>Choose a strong password.</FormDescription>
               <FormMessage />

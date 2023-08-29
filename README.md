@@ -1,3 +1,3 @@
 ### Authentication kit
 
-![progress](./docs/progress.jpg)
+![progress](./docs/current-progress.jpg)
