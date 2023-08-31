@@ -14,10 +14,11 @@ SHOW TABLES;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     `id` BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    `firstName` VARCHAR(100) NOT NULL,
-    `lastName` VARCHAR(100) NOT NULL,
+    `username` VARCHAR(255) NOT NULL UNIQUE,
     `email` VARCHAR(255) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
+    `phoneNumber` VARCHAR(20),
+    `emailNotifications`  BOOLEAN DEFAULT(1),
     `createdAt` TIMESTAMP NOT NULL DEFAULT(now())
 );
 
@@ -26,14 +27,14 @@ SELECT * from users;
 
 -- @block
 INSERT INTO users (
-    `firstName`,
-    `lastName`,
+    `username`,
     `email`,
-    `password`
+    `password`,
+    `phoneNumber`,
+    `emailNotifications`
 ) VALUES (
-    'Mathew','B','mathew@test.com','tester123'
+    'matt','matt@test.com','tester123', '123-456-7890', 0
 );
-SELECT * FROM users;
 
 -- @block
 DROP DATABASE authkit;

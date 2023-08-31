@@ -58,23 +58,18 @@ export const postSignupController = async (
     return res.status(500).json(errorMessage);
   }
 
-  if (!signupReqData.firstName) {
-    const errorMessage = "Sign up error, first name is missing";
-    console.error(errorMessage);
-    return res.status(500).json(errorMessage);
-  }
-
-  if (!signupReqData.lastName) {
-    const errorMessage = "Sign up error, last name is missing";
+  if (!signupReqData.username) {
+    const errorMessage = "Sign up error, username is missing";
     console.error(errorMessage);
     return res.status(500).json(errorMessage);
   }
 
   createUser(
-    signupReqData.firstName,
-    signupReqData.lastName,
+    signupReqData.username,
     signupReqData.email,
-    signupReqData.password
+    signupReqData.password,
+    signupReqData.emailNotifications,
+    signupReqData.phoneNumber
   )
     .then((createUserResponse) => {
       console.log("Sign up successful");

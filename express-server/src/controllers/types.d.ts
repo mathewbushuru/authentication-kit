@@ -5,8 +5,9 @@ export interface LoginDataType {
 }
 
 export interface SignupDataType {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
+  phoneNumber?: string;
+  emailNotifications: boolean;
 }

@@ -1,18 +1,19 @@
 import dbPool from "./index.js";
 
 export async function createUser(
-  firstName: string,
-  lastName: string,
+  username: string,
   email: string,
-  password: string
+  password: string,
+  emailNotifications: boolean,
+  phoneNumber?: string
 ) {
   const response: any = await dbPool.query(
     `
         INSERT INTO users (
-            firstName, lastName, email, password
-        ) VALUES (?,?,?,?)
+            username, email, password, phoneNumber, emailNotifications
+        ) VALUES (?,?,?,?,?)
     `,
-    [firstName, lastName, email, password]
+    [username, email, password, phoneNumber || null, emailNotifications ? 1 : 0]
   );
   const id = response[0].insertId;
   return getUserById(id);
