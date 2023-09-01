@@ -17,6 +17,7 @@ app.get("/", (req, res, next) => {
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use((error, req, res, next) => {
+    console.error(error);
     res.status(500).json({ errorMessage: "Something went wrong" });
 });
 // Start server

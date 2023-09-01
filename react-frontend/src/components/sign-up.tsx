@@ -20,18 +20,21 @@ const signupFormSchema = z.object({
   username: z
     .string()
     .min(2, {
-      message: "Username must be at least 2 characters",
+      message: "Username must be 2 or more characters long",
     })
     .max(50),
-  emailAddress: z.string().min(1, {
-    message: "Email is required.",
-  }),
+  emailAddress: z.string().email({ message: "Email address is not valid" }),
   password: z.string().min(5, {
     message: "Password must be at least 5 characters.",
   }),
   phoneNumber: z.string().optional(),
   emailNotifications: z.boolean().default(true),
-  acceptTerms: z.boolean(),
+  // acceptTerms: z.boolean({
+  //   required_error: "Accept terms and conditions to continue"
+  // }),
+  acceptTerms: z.literal(true, {
+    required_error: "Accept terms and conditions to continue",
+  }),
 });
 
 function Signup() {
@@ -43,7 +46,7 @@ function Signup() {
       password: "",
       phoneNumber: "",
       emailNotifications: true,
-      acceptTerms: false,
+      acceptTerms: true,
     },
   });
 
@@ -138,18 +141,20 @@ function Signup() {
           control={form.control}
           name="acceptTerms"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-2 leading-none">
-                <FormLabel>Accept terms and conditions</FormLabel>
-                <FormDescription>
-                  You agree to our terms of service and privacy policy.
-                </FormDescription>
+            <FormItem>
+              <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-2 leading-none">
+                  <FormLabel>Accept terms and conditions</FormLabel>
+                  <FormDescription>
+                    You agree to our terms of service and privacy policy.
+                  </FormDescription>
+                </div>
               </div>
             </FormItem>
           )}

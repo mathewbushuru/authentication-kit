@@ -1,10 +1,12 @@
 export default class User {
-    constructor(id, email, password, firstName, lastName) {
+    constructor(id, username, email, password, phoneNumber, emailNotifications, createdAt) {
         this.id = id;
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.emailNotifications = emailNotifications;
+        this.createdAt = createdAt;
     }
     saveToDb() {
         // TODO:  Save user info to database
