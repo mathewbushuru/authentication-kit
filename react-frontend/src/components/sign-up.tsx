@@ -30,9 +30,6 @@ const signupFormSchema = z.object({
   }),
   phoneNumber: z.string().optional(),
   emailNotifications: z.boolean().default(true),
-  // acceptTerms: z.boolean({
-  //   required_error: "Accept terms and conditions to continue"
-  // }),
   acceptTerms: z.literal(true, {
     required_error: "Accept terms and conditions to continue",
   }),
