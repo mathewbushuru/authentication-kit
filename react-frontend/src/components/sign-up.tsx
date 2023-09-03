@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,6 +50,7 @@ function Signup() {
       acceptTerms: true,
     },
   });
+  const navigate = useNavigate();
 
   function onFormSubmit(values: z.infer<typeof signupFormSchema>) {
     console.log(values);
@@ -160,6 +162,15 @@ function Signup() {
           )}
         />
         <Button type="submit">Sign up</Button>
+        <p className="text-sm">
+          Have an account?{" "}
+          <span
+            className="cursor-pointer text-muted-foreground"
+            onClick={() => navigate("/sign-in")}
+          >
+            Sign in
+          </span>
+        </p>
       </form>
     </Form>
   );

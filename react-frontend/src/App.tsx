@@ -1,14 +1,18 @@
-import Signup from "@/components/sign-up";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import HomePage from "@/pages/home";
+import SignupPage from "@/pages/sign-up";
+import SigninPage from "@/pages/sign-in";
+import ErrorPage from "./pages/error";
+
+const router = createBrowserRouter([
+  { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
+  { path: "/sign-up", element: <SignupPage /> },
+  { path: "/sign-in", element: <SigninPage /> },
+]);
 
 function App() {
-  return (
-    <>
-      <div className="max-w-lg mx-auto px-8 py-10 space-y-4">
-        <p>AuthKit App</p>
-        <Signup />
-      </div>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
