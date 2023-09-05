@@ -1,27 +1,18 @@
-import Signup from "@/components/sign-up";
+import { useNavigate } from "react-router-dom";
 
-import { useGetRootQuery } from "@/api/auth";
+import Signup from "@/components/sign-up";
+import { Button } from "@/components/ui/button";
 
 function HomePage() {
-  const { data, error, isLoading } = useGetRootQuery(null);
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto max-w-lg space-y-4 px-8 py-10">
       <p>AuthKit App</p>
       <Signup />
-      <div className="">
-        {error ? (
-          <>
-            Oh no, there was an error: <br /> {JSON.stringify(error)}
-          </>
-        ) : isLoading ? (
-          <>Loading...</>
-        ) : data ? (
-          <>
-            <p> {data.message}</p>
-          </>
-        ) : null}
-      </div>
+      <Button variant="secondary" onClick={() => navigate("/api-playground")}>
+        Visit API playground
+      </Button>
     </div>
   );
 }
