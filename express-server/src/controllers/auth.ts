@@ -3,7 +3,11 @@ import { NextFunction, Request, Response } from "express";
 import { createUser, getUserById, getUserByEmail } from "../database/utils.js";
 import { LoginDataType, SignupDataType } from "./types.js";
 
-export const postLoginController = async (req: Request, res: Response) => {
+export const postLoginController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const loginReqData = req.body as LoginDataType;
 
   if (!loginReqData.email) {
@@ -18,17 +22,37 @@ export const postLoginController = async (req: Request, res: Response) => {
     return res.status(500).json(errorMessage);
   }
 
-  const userData = await getUserByEmail(loginReqData.email);
+  getUserByEmail(loginReqData.email)
+    .then((userData) => {
+      console.log(userData);
+      if (!userData){
+        const errorMessage = "Log in error, no such user";
+        return res.status(500).json(errorMessage)
+      }
+      if (userData.password !== loginReqData.password) {
+        const errorMessage = "Log in error, wrong password";
+        console.error(errorMessage);
+        return res.status(500).json(errorMessage);
+      }
+      console.log("Log in successful");
+      res.json(userData);
+    })
+    .catch((err) => {
+      return next(err);
+    });
 
-  if (userData.password !== loginReqData.password) {
-    const errorMessage = "Log in error, wrong password";
-    console.error(errorMessage);
-    return res.status(500).json(errorMessage);
-  }
-
-  console.log("Log in successful");
-
-  res.json(userData);
+  // try {
+  //   const userData = await getUserByEmail(loginReqData.email);
+  //   if (userData.password !== loginReqData.password) {
+  //     const errorMessage = "Log in error, wrong password";
+  //     console.error(errorMessage);
+  //     return res.status(500).json(errorMessage);
+  //   }
+  //   console.log("Log in successful");
+  //   res.json(userData);
+  // } catch (err) {
+  //   return next(err);
+  // }
 };
 
 export const postSignupController = async (

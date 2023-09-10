@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import Signup from "@/components/sign-up";
+import Signin from "@/components/sign-in";
 import { Button } from "@/components/ui/button";
 
 function HomePage() {
@@ -9,7 +9,7 @@ function HomePage() {
   return (
     <div className="mx-auto max-w-lg space-y-4 px-8 py-10">
       <p>AuthKit App</p>
-      <Signup />
+      <Signin />
       <Button variant="secondary" onClick={() => navigate("/api-playground")}>
         Visit API playground
       </Button>

@@ -1,5 +1,5 @@
 import { createUser, getUserByEmail } from "../database/utils.js";
-export const postLoginController = async (req, res) => {
+export const postLoginController = async (req, res, next) => {
     const loginReqData = req.body;
     if (!loginReqData.email) {
         const errorMessage = "Log in error, email is missing";
@@ -11,14 +11,36 @@ export const postLoginController = async (req, res) => {
         console.error(errorMessage);
         return res.status(500).json(errorMessage);
     }
-    const userData = await getUserByEmail(loginReqData.email);
-    if (userData.password !== loginReqData.password) {
-        const errorMessage = "Log in error, wrong password";
-        console.error(errorMessage);
-        return res.status(500).json(errorMessage);
-    }
-    console.log("Log in successful");
-    res.json(userData);
+    getUserByEmail(loginReqData.email)
+        .then((userData) => {
+        console.log(userData);
+        if (!userData) {
+            const errorMessage = "Log in error, no such user";
+            return res.status(500).json(errorMessage);
+        }
+        if (userData.password !== loginReqData.password) {
+            const errorMessage = "Log in error, wrong password";
+            console.error(errorMessage);
+            return res.status(500).json(errorMessage);
+        }
+        console.log("Log in successful");
+        res.json(userData);
+    })
+        .catch((err) => {
+        return next(err);
+    });
+    // try {
+    //   const userData = await getUserByEmail(loginReqData.email);
+    //   if (userData.password !== loginReqData.password) {
+    //     const errorMessage = "Log in error, wrong password";
+    //     console.error(errorMessage);
+    //     return res.status(500).json(errorMessage);
+    //   }
+    //   console.log("Log in successful");
+    //   res.json(userData);
+    // } catch (err) {
+    //   return next(err);
+    // }
 };
 export const postSignupController = async (req, res, next) => {
     const signupReqData = req.body;

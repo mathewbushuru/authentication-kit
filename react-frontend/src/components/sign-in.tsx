@@ -3,6 +3,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { useLoginMutation } from "@/api/auth";
+import { type LoginRequestType } from "@/api/types";
+import { useAppDispatch } from "@/hooks/redux";
+import { setCredentials } from "@/store/features/auth-slice";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -35,9 +40,22 @@ function Signin() {
     },
   });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  function onFormSubmit(values: z.infer<typeof signinFormSchema>) {
-    console.log(values);
+  const [loginTrigger, { isLoading }] = useLoginMutation();
+
+  async function onFormSubmit(formData: z.infer<typeof signinFormSchema>) {
+    const { usernameOrEmail: email, password } = formData;
+    const loginData: LoginRequestType = { email, password };
+    try {
+      const user = await loginTrigger(loginData).unwrap();
+      console.log(user);
+      dispatch(setCredentials({ user, token: crypto.randomUUID() }));
+      navigate("/api-playground");
+    } catch (err) {
+      console.log("An error occurred while logging in.");
+      console.error(err);
+    }
   }
 
   return (
@@ -69,7 +87,9 @@ function Signin() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign in</Button>
+        <Button type="submit" disabled={isLoading}>
+          Sign in
+        </Button>
         <p className="text-sm">
           No account?{" "}
           <span
