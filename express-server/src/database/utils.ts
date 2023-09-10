@@ -1,5 +1,7 @@
 import dbPool from "./index.js";
 
+import { userType } from "../models/user.js";
+
 export async function createUser(
   username: string,
   email: string,
@@ -21,8 +23,8 @@ export async function createUser(
 
 export async function getAllUsers() {
   const dbResponse = await dbPool.query(`SELECT * FROM users;`);
-  const allUsers = dbResponse[0];
-  return allUsers;
+  const allUsersArr = dbResponse[0] as unknown as userType[];
+  return allUsersArr;
 }
 
 export async function getUserById(id: number) {
@@ -32,6 +34,19 @@ export async function getUserById(id: number) {
     `,
     [id]
   );
-  const user: any = dbResponse[0];
-  return user[0];
+  const userArr = dbResponse[0] as unknown as userType[];
+  const user = userArr[0];
+  return user;
+}
+
+export async function getUserByEmail(email: string) {
+  const dbResponse = await dbPool.query(
+    `
+      SELECT * FROM users where email=?;
+    `,
+    [email]
+  );
+  const userArr = dbResponse[0] as unknown as userType[];
+  const user = userArr[0];
+  return user;
 }

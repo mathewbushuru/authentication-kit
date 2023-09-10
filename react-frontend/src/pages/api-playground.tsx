@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/hooks/redux";
 import {
   useGetRootQuery,
   useGetAllUsersQuery,
@@ -9,6 +10,8 @@ import {
 
 function ApiPlaygroundPage() {
   const navigate = useNavigate();
+
+  const currentUser = useAppSelector((state) => state.auth);
 
   const { data: rootData, error, isLoading } = useGetRootQuery(null);
   const { data: allUsersData } = useGetAllUsersQuery(null);
@@ -21,10 +24,8 @@ function ApiPlaygroundPage() {
       </Button>
       <hr />
 
-      <h3 className="font-semibold">useGetAllUsersQuery()</h3>
-      <pre className="font-mono text-sm">
-        {JSON.stringify(allUsersData, null, 2)}
-      </pre>
+      <h3 className="font-semibold">Current user</h3>
+      <pre className="text-sm">{JSON.stringify(currentUser, null, 2)}</pre>
       <hr />
 
       <h3 className="font-semibold">useGetRootQuery()</h3>
@@ -37,6 +38,24 @@ function ApiPlaygroundPage() {
       <pre className="font-mono text-sm">
         {JSON.stringify(userByIdData, null, 2)}
       </pre>
+      <hr />
+
+      <h3 className="font-semibold">useGetAllUsersQuery()</h3>
+      <pre className="font-mono text-sm">
+        {JSON.stringify(allUsersData, null, 2)}
+      </pre>
+      <hr />
+
+      <h3 className="font-semibold">useSignupMutation()</h3>
+      <pre className="text-sm"></pre>
+      <hr />
+
+      <h3 className="font-semibold">useLoginMutation()</h3>
+      <pre className="text-sm"></pre>
+      <hr />
+
+      <h3 className="font-semibold">useProtectedMutation()</h3>
+      <pre className="text-sm"></pre>
       <hr />
 
       <pre className="font-mono text-sm">

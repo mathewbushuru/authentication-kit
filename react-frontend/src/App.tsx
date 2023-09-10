@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import HomePage from "@/pages/home";
 import SignupPage from "@/pages/sign-up";
 import SigninPage from "@/pages/sign-in";
-import ApiPlaygroundPage from "./pages/api-playground";
+import ApiPlaygroundPage from "@/pages/api-playground";
 import ErrorPage from "@/pages/error";
 
 import { store } from "@/store/store";

@@ -25,7 +25,7 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.error(error);
-  res.status(500).json({ errorMessage: "Something went wrong" });
+  res.status(500).json({ errorMessage: "Something went wrong", ...error });
 });
 
 // Start server

@@ -1,5 +1,4 @@
 export interface LoginDataType {
-  id: string;
   email: string;
   password: string;
 }

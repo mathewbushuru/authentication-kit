@@ -3,6 +3,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { useSignupMutation } from "@/api/auth";
+import { type SignupRequestType } from "@/api/types";
+import { useAppDispatch } from "@/hooks/redux";
+import { setCredentials } from "@/store/features/auth-slice";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -24,7 +29,7 @@ const signupFormSchema = z.object({
       message: "Username must be 2 or more characters long",
     })
     .max(50),
-  emailAddress: z.string().email({ message: "Email address is not valid" }),
+  email: z.string().email({ message: "Email address is not valid" }),
   password: z.string().min(5, {
     message: "Password must be at least 5 characters.",
   }),
@@ -40,7 +45,7 @@ function Signup() {
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
       username: "",
-      emailAddress: "",
+      email: "",
       password: "",
       phoneNumber: "",
       emailNotifications: true,
@@ -48,9 +53,30 @@ function Signup() {
     },
   });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  function onFormSubmit(values: z.infer<typeof signupFormSchema>) {
-    console.log(values);
+  const [signupTrigger, { isLoading }] = useSignupMutation();
+
+  async function onFormSubmit(formValues: z.infer<typeof signupFormSchema>) {
+    // remove acceptTerms as not needed in server. Submission not allowed without it checked
+    const { username, email, password, phoneNumber, emailNotifications } =
+      formValues;
+    const signupData: SignupRequestType = {
+      username,
+      email,
+      password,
+      emailNotifications,
+      phoneNumber,
+    };
+    try {
+      const user = await signupTrigger(signupData).unwrap();
+      console.log(user);
+      dispatch(setCredentials({ user, token: crypto.randomUUID() }));
+      navigate("/api-playground");
+    } catch (err) {
+      console.log("An error occured while signing up");
+      console.error(err);
+    }
   }
 
   return (
@@ -74,7 +100,7 @@ function Signup() {
         />
         <FormField
           control={form.control}
-          name="emailAddress"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -158,7 +184,9 @@ function Signup() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign up</Button>
+        <Button type="submit" disabled={isLoading}>
+          Sign up
+        </Button>
         <p className="text-sm">
           Have an account?{" "}
           <span

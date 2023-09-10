@@ -1,31 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+import { type User } from "@/api/types";
 
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;
 
-export interface UserAuthState {
-  loading: boolean;
-  userInfo: {};
-  userJwtToken: string | null;
-  error: null;
-  success: boolean;
-}
+type AuthState = {
+  user: User | null;
+  token: string | null;
+};
 
-const initialState: UserAuthState = {
-  loading: false,
-  userInfo: {},
-  userJwtToken: userToken,
-  error: null,
-  success: false,
+const initialState: AuthState = {
+  user: null,
+  token: userToken,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setCredentials: (
+      state,
+      action: PayloadAction<{ user: User; token: string }>,
+    ) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+    },
+  },
 });
 
-export const {} = authSlice.actions;
+export const { setCredentials } = authSlice.actions;
 
 export default authSlice.reducer;

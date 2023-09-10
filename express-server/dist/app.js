@@ -20,7 +20,7 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use((error, req, res, next) => {
     console.error(error);
-    res.status(500).json({ errorMessage: "Something went wrong" });
+    res.status(500).json({ errorMessage: "Something went wrong", ...error });
 });
 // Start server
 app.listen(process.env.PORT || 3001, () => {

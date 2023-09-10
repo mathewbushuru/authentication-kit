@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { createUser, getUserById } from "../database/utils.js";
+import { createUser, getUserById, getUserByEmail } from "../database/utils.js";
 import { LoginDataType, SignupDataType } from "./types.js";
 
 export const postLoginController = async (req: Request, res: Response) => {
@@ -18,15 +18,7 @@ export const postLoginController = async (req: Request, res: Response) => {
     return res.status(500).json(errorMessage);
   }
 
-  if (!loginReqData.id) {
-    const errorMessage = "Log in error, id is missing";
-    console.error(errorMessage);
-    return res.status(500).json(errorMessage);
-  }
-
-  const userData = (await getUserById(
-    +loginReqData.id
-  )) as unknown as LoginDataType;
+  const userData = await getUserByEmail(loginReqData.email);
 
   if (userData.password !== loginReqData.password) {
     const errorMessage = "Log in error, wrong password";

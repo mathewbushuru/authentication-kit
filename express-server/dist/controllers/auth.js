@@ -1,4 +1,4 @@
-import { createUser, getUserById } from "../database/utils.js";
+import { createUser, getUserByEmail } from "../database/utils.js";
 export const postLoginController = async (req, res) => {
     const loginReqData = req.body;
     if (!loginReqData.email) {
@@ -11,12 +11,7 @@ export const postLoginController = async (req, res) => {
         console.error(errorMessage);
         return res.status(500).json(errorMessage);
     }
-    if (!loginReqData.id) {
-        const errorMessage = "Log in error, id is missing";
-        console.error(errorMessage);
-        return res.status(500).json(errorMessage);
-    }
-    const userData = (await getUserById(+loginReqData.id));
+    const userData = await getUserByEmail(loginReqData.email);
     if (userData.password !== loginReqData.password) {
         const errorMessage = "Log in error, wrong password";
         console.error(errorMessage);
