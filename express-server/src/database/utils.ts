@@ -12,7 +12,7 @@ export async function createUser(
   const response: any = await dbPool.query(
     `
         INSERT INTO users (
-            username, email, password, phoneNumber, emailNotifications
+            username, email, hashedPassword, phoneNumber, emailNotifications
         ) VALUES (?,?,?,?,?)
     `,
     [username, email, password, phoneNumber || null, emailNotifications ? 1 : 0]

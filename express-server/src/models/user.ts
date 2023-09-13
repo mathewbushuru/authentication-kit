@@ -2,37 +2,41 @@ export interface userType {
   id: number;
   username: string;
   email: string;
-  password: string;
+  hashedPassword: string;
   phoneNumber?: string;
   emailNotifications: boolean;
   createdAt: string;
+  updatedAt: string;
 }
 
 export default class User implements userType {
   public readonly id: number;
   username: string;
   email: string;
-  password: string;
+  hashedPassword: string;
   phoneNumber: string | undefined;
   emailNotifications: boolean;
   createdAt: string;
+  updatedAt: string;
 
   constructor(
     id: number,
     username: string,
     email: string,
-    password: string,
+    hashedPassword: string,
     phoneNumber: string | undefined,
     emailNotifications: boolean,
-    createdAt: string
+    createdAt: string,
+    updateddAt: string
   ) {
     this.id = id;
     this.username = username;
     this.email = email;
-    this.password = password;
+    this.hashedPassword = hashedPassword;
     this.phoneNumber = phoneNumber;
     this.emailNotifications = emailNotifications;
     this.createdAt = createdAt;
+    this.updatedAt = updateddAt;
   }
 
   saveToDb() {

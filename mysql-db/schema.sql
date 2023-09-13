@@ -16,10 +16,11 @@ CREATE TABLE users (
     `id` BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL UNIQUE,
     `email` VARCHAR(255) NOT NULL UNIQUE,
-    `password` VARCHAR(255) NOT NULL,
+    `hashedPassword` VARCHAR(255) NOT NULL,
     `phoneNumber` VARCHAR(20),
     `emailNotifications`  BOOLEAN DEFAULT(1),
-    `createdAt` TIMESTAMP NOT NULL DEFAULT(now())
+    `createdAt` TIMESTAMP NOT NULL DEFAULT(now()),
+    `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- @block
@@ -29,12 +30,17 @@ SELECT * from users;
 INSERT INTO users (
     `username`,
     `email`,
-    `password`,
+    `hashedPassword`,
     `phoneNumber`,
     `emailNotifications`
 ) VALUES (
     'matt','matt@test.com','tester123', '123-456-7890', 0
 );
+
+-- @block
+ALTER TABLE users
+    ADD COLUMN `newColumn` VARCHAR(255) NOT NULL,
+    ADD COLUMN `newColumn2` VARCHAR(255) NOT NULL  UNIQUE;
 
 -- @block
 DROP DATABASE authkit;
