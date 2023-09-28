@@ -21,13 +21,13 @@ const authApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getAllUsers: builder.query({
+    getAllUsers: builder.query<UserResponseType[], void>({
       query: () => "/admin/all-users",
     }),
-    getRoot: builder.query({
+    getRoot: builder.query<any, void>({
       query: () => `/`,
     }),
-    getUserById: builder.query({
+    getUserById: builder.query<UserResponseType, number>({
       query: (id) => `/admin/user/${id}`,
     }),
     login: builder.mutation<UserResponseType, LoginRequestType>({

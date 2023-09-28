@@ -2,10 +2,10 @@ export type User = {
   id: number;
   username: string;
   email: string;
-  password: string;
   phoneNumber: string;
   emailNotifications: boolean;
   createdAt: string;
+  updatedAt: string;
 };
 
 export type LoginRequestType = {

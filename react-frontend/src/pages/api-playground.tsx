@@ -13,8 +13,13 @@ function ApiPlaygroundPage() {
 
   const currentUser = useAppSelector((state) => state.auth);
 
-  const { data: rootData, error, isLoading } = useGetRootQuery(null);
-  const { data: allUsersData } = useGetAllUsersQuery(null);
+  const {
+    data: rootData,
+    error,
+    isLoading,
+    isFetching,
+  } = useGetRootQuery(undefined, { pollingInterval: 3000 });
+  const { data: allUsersData } = useGetAllUsersQuery();
   const { data: userByIdData } = useGetUserByIdQuery(1);
 
   return (
@@ -64,7 +69,9 @@ function ApiPlaygroundPage() {
             Oh no, there was an error: <br /> {JSON.stringify(error, null, 2)}
           </>
         ) : isLoading ? (
-          <>Loading...</>
+          <>Loading for the first time...</>
+        ) : isFetching ? (
+          <>Refetching data...</>
         ) : rootData ? (
           <>{rootData.message}</>
         ) : null}
