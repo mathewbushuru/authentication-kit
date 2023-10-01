@@ -24,9 +24,14 @@ function ApiPlaygroundPage() {
 
   return (
     <div className="mx-auto space-y-4 px-4 py-10 sm:px-8">
-      <Button variant="secondary" onClick={() => navigate("/")}>
-        Home
-      </Button>
+      <div className="flex gap-2">
+        <Button variant="secondary" onClick={() => navigate("/")}>
+          Home
+        </Button>
+        <Button variant="secondary" onClick={() => navigate("/protected")}>
+          Protected page
+        </Button>
+      </div>
       <hr />
 
       <h3 className="font-semibold">Current user</h3>
