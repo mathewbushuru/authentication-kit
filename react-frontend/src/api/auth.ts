@@ -20,15 +20,18 @@ const authApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["User", "Users"],
   endpoints: (builder) => ({
     getAllUsers: builder.query<UserResponseType[], void>({
       query: () => "/admin/all-users",
+      providesTags: ["Users"],
     }),
     getRoot: builder.query<any, void>({
       query: () => `/`,
     }),
     getUserById: builder.query<UserResponseType, number>({
       query: (id) => `/admin/user/${id}`,
+      providesTags: ["User"], // Use this tag after creating getCurrentUser query
     }),
     login: builder.mutation<UserResponseType, LoginRequestType>({
       query: (credentials) => ({
@@ -36,6 +39,7 @@ const authApi = createApi({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["User"],
     }),
     signup: builder.mutation<UserResponseType, SignupRequestType>({
       query: (signupData) => ({
