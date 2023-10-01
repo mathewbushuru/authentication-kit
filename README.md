@@ -1,4 +1,4 @@
-### Authentication kit
+<h2 align="center"> Authentication Kit </h1>
 
 This is a generic and reusable implementation of authentication strategies in ReactJS / ExpressJS web apps.
 
@@ -6,15 +6,15 @@ This is a generic and reusable implementation of authentication strategies in Re
 
 ##### Tech Stack 
 
+- [`TypeScript`](https://www.typescriptlang.org/) - Same language for both the frontend and backend.
+
 Frontend
-- [`TypeScript`](https://www.typescriptlang.org/) - static typing
 - [`React`](https://react.dev/) - frontend
 - [`TailwindCSS`](https://tailwindcss.com/) - styling
 - [`Redux / RTK Query`](https://redux-toolkit.js.org/) - state management, data fetching and caching
 
 Backend
 - [`Node / Express`](https://expressjs.com/) - backend framework
-- [`TypeScript`](https://www.typescriptlang.org/) - static typing
 
 Database
-- [`MySQL`](https://www.mysql.com/) - SQL database
+- [`MySQL`](https://www.mysql.com/) - Relational database

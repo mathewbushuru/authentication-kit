@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
 
 import HomePage from "@/pages/home";
 import SignupPage from "@/pages/sign-up";
@@ -18,9 +18,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <RouterProvider router={router} />
-    </Provider>
+    </ReduxProvider>
   );
 }
 
