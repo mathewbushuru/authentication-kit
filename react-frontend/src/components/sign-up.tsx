@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignupMutation } from "@/api/auth";
 import { type SignupRequestType } from "@/api/types";
 import { useAppDispatch } from "@/hooks/redux";
+import { useToast } from "@/hooks/use-toast";
 import { setCredentials } from "@/store/features/auth-slice";
 
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,7 @@ function Signup() {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const [signupTrigger, { isLoading }] = useSignupMutation();
 
@@ -73,9 +75,14 @@ function Signup() {
       console.log(user);
       dispatch(setCredentials({ user, token: crypto.randomUUID() }));
       navigate("/api-playground");
-    } catch (err) {
+    } catch (err: any) {
       console.log("An error occured while signing up");
       console.error(err);
+      toast({
+        title: "Something went wrong",
+        description: err?.data?.message,
+        variant: "destructive",
+      });
     }
   }
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/api/auth";
 import { type LoginRequestType } from "@/api/types";
 import { useAppDispatch } from "@/hooks/redux";
+import { useToast } from "@/hooks/use-toast";
 import { setCredentials } from "@/store/features/auth-slice";
 
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,7 @@ function Signin() {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const {toast} = useToast();
 
   const [loginTrigger, { isLoading }] = useLoginMutation();
 
@@ -52,9 +54,14 @@ function Signin() {
       console.log(user);
       dispatch(setCredentials({ user, token: crypto.randomUUID() }));
       navigate("/api-playground");
-    } catch (err) {
+    } catch (err: any) {
       console.log("An error occurred while logging in.");
       console.error(err);
+      toast({
+        title: "Something went wrong",
+        description: err?.data,
+        variant:"destructive"
+      })
     }
   }
 

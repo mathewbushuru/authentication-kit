@@ -8,6 +8,7 @@ import ApiPlaygroundPage from "@/pages/api-playground";
 import ErrorPage from "@/pages/error";
 
 import { store } from "@/store/store";
+import { Toaster } from "@/components/toast-provider";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
@@ -20,6 +21,7 @@ function App() {
   return (
     <ReduxProvider store={store}>
       <RouterProvider router={router} />
+      <Toaster  />
     </ReduxProvider>
   );
 }
