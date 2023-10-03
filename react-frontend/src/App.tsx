@@ -9,7 +9,7 @@ import ProtectedPage from "@/pages/protected";
 import ErrorPage from "@/pages/error";
 
 import { store } from "@/store/store";
-import useAuth from "./hooks/use-auth";
+import useAuth from "@/hooks/use-auth";
 import { Toaster } from "@/components/toast-provider";
 
 const publicRoutes = [

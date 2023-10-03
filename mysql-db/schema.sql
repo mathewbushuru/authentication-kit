@@ -34,7 +34,7 @@ INSERT INTO users (
     `phoneNumber`,
     `emailNotifications`
 ) VALUES (
-    'matt','matt@test.com','tester123', '123-456-7890', 0
+    'matt','matt@test.com','$2b$10$3skTm/x4dnefAcjq0oAad.sYgWiMQLk4wafN4Z8iO058TJPNQEBei', '123-456-7890', 0
 );
 
 -- @block

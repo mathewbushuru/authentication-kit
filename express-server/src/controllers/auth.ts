@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { createUser, getUserById, getUserByEmail } from "../database/utils.js";
+import { hashPassword, checkUserPassword } from "../lib/auth.js";
 import { LoginDataType, SignupDataType } from "./types.js";
 
 /**
@@ -27,30 +28,25 @@ export const postLoginController = async (
     return res.status(400).json(errorMessage);
   }
 
-  getUserByEmail(loginReqData.email)
-    .then((userData) => {
-      console.log(userData);
-      if (!userData) {
-        const errorMessage = "Log in error, no such user";
-        return res.status(401).json(errorMessage);
-      }
+  const userData = await getUserByEmail(loginReqData.email);
+  console.log(userData);
+  if (!userData) {
+    const errorMessage = "Log in error, no such user";
+    return res.status(401).json(errorMessage);
+  }
 
-      //TODO: hash password through bcrypt
-      const hashedReqDataPassword = loginReqData.password;
-
-      const { hashedPassword, ...userDataWithoutPassword } = userData;
-      if (hashedPassword !== hashedReqDataPassword) {
-        const errorMessage = "Log in error, wrong password";
-        console.error(errorMessage);
-        return res.status(401).json(errorMessage);
-      }
-
-      console.log("Log in successful");
-      res.json(userDataWithoutPassword);
-    })
-    .catch((err) => {
-      return next(err);
-    });
+  const { hashedPassword, ...userDataWithoutPassword } = userData;
+  const passwordMatches = await checkUserPassword(
+    loginReqData.password,
+    hashedPassword
+  );
+  if (passwordMatches) {
+    console.log("Login successful");
+    res.json(userDataWithoutPassword);
+  } else {
+    const errorMessage = "Log in error, wrong password";
+    return res.status(401).json(errorMessage);
+  }
 };
 
 /**
@@ -83,8 +79,7 @@ export const postSignupController = async (
     return res.status(500).json(errorMessage);
   }
 
-  //TODO: hash password through bcrypt
-  const hashedReqDataPassword = signupReqData.password;
+  const hashedReqDataPassword = await hashPassword(signupReqData.password);
 
   createUser(
     signupReqData.username,
