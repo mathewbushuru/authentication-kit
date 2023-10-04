@@ -1,10 +1,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { type User } from "@/api/types";
+import { localStorageHelpers } from "@/lib/utils";
 
-const userToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
+const userToken = localStorageHelpers.getToken();
 
 type AuthState = {
   user: User | null;
@@ -26,6 +25,7 @@ const authSlice = createSlice({
     ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      localStorageHelpers.setToken(action.payload.token);
     },
   },
 });

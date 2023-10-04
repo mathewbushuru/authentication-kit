@@ -6,6 +6,15 @@ This is a generic and reusable implementation of authentication strategies in Re
 
 ##### How it works
 
+This app uses token based authentication where we store the JSON Web  Token (JWT) clientside in the browser's local storage. The authentication/authorization process is listed below:
+
+- Client sends login data (username/email, password).
+- Server creates a JWT and returns it to client.
+- Client sends authenticated request with JWT in the header. I am using RTK Query to automatically inject the token into each request's headers if it exists as shown [here](./react-frontend/src/api/auth.ts).
+-  Server validates the JWT and returns the response
+
+The diagram below shows how we store and validate the password in the backend.
+
 ![howItWorks](./docs/how_it_works.jpg)
 
 A minor difference - the `salt` is not stored as a different column in the  database. It is stored in the hashedPassword column among other parameters as follows:

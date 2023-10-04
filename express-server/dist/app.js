@@ -18,6 +18,11 @@ app.get("/", (req, res, next) => {
 });
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
+app.use((req, res, next) => {
+    const errorMessage = "404 Error - Not found";
+    console.log(errorMessage);
+    return res.status(404).json({ errorMessage });
+});
 app.use((error, req, res, next) => {
     console.error(error);
     res.status(500).json({ errorMessage: "Something went wrong", ...error });

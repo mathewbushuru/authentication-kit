@@ -3,4 +3,6 @@ import { postLoginController, postSignupController, } from "../controllers/auth.
 const router = Router();
 router.post("/login", postLoginController);
 router.post("/signup", postSignupController);
+router.post("/forgot-password", () => { });
+router.post("/verify-email", () => { });
 export default router;
