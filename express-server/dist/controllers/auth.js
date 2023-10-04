@@ -1,4 +1,5 @@
-import { createUser, getUserByEmail } from "../database/utils.js";
+import jwt from "jsonwebtoken";
+import { createUser, getUserById, getUserByEmail } from "../database/utils.js";
 import { hashPassword, checkUserPassword } from "../lib/auth.js";
 /**
  * @desc: login user and (TODO:) generate token
@@ -27,7 +28,10 @@ export const postLoginController = async (req, res, next) => {
     const passwordMatches = await checkUserPassword(loginReqData.password, hashedPassword);
     if (passwordMatches) {
         console.log("Login successful");
-        res.json(userDataWithoutPassword);
+        // const secondsToExpire = 24 * 60 * 60;
+        const secondsToExpire = 1 * 60;
+        const jwtToken = jwt.sign({ userId: userDataWithoutPassword.id }, process.env.JWT_SECRET_KEY, { algorithm: "HS256", expiresIn: secondsToExpire });
+        res.json({ userData: userDataWithoutPassword, jwtToken });
     }
     else {
         const errorMessage = "Log in error, wrong password";
@@ -66,4 +70,19 @@ export const postSignupController = async (req, res, next) => {
         .catch((err) => {
         return next(err);
     });
+};
+/**
+ * @desc: Send back returning user's data after the JWT token in the request header is validated by verifyToken middleware
+ * @listens: GET /auth/verify-token
+ * @access: private
+ */
+export const getVerifiedUserData = async (req, res, next) => {
+    const userId = req.userId;
+    if (!userId) {
+        return res.status(401).json({ message: "Unauthorized - invalid token" });
+    }
+    const userData = await getUserById(userId);
+    const { hashedPassword, ...userDataWithoutPassword } = userData;
+    console.log(userData);
+    return res.json(userDataWithoutPassword);
 };

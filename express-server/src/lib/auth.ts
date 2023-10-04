@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import { getUserById } from "../database/utils.js";
 
 const SALT_ROUNDS = 10;
 

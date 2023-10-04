@@ -15,7 +15,9 @@ This app uses token based authentication where we store the JSON Web  Token (JWT
 
 The diagram below shows how we store and validate the password in the backend.
 
-![howItWorks](./docs/how_it_works.jpg)
+<p align="center">
+    <img src="./docs/how_it_works.jpg" width="500px" >
+</p>
 
 A minor difference - the `salt` is not stored as a different column in the  database. It is stored in the hashedPassword column among other parameters as follows:
 

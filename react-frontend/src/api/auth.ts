@@ -33,7 +33,10 @@ const authApi = createApi({
       query: (id) => `/admin/user/${id}`,
       providesTags: ["User"], // Use this tag after creating getCurrentUser query
     }),
-    login: builder.mutation<UserResponseType, LoginRequestType>({
+    login: builder.mutation<
+      { userData: UserResponseType; jwtToken: string },
+      LoginRequestType
+    >({
       query: (credentials) => ({
         url: "/auth/login",
         method: "POST",
@@ -47,9 +50,10 @@ const authApi = createApi({
         method: "POST",
         body: signupData,
       }),
+      invalidatesTags: ["Users"],
     }),
-    protected: builder.mutation({
-      query: () => "/protected",
+    verifyToken: builder.query<UserResponseType, void>({
+      query: () => "/auth/verify-token",
     }),
   }),
 });
@@ -60,7 +64,7 @@ export const {
   useGetUserByIdQuery,
   useLoginMutation,
   useSignupMutation,
-  useProtectedMutation,
+  useVerifyTokenQuery,
 } = authApi;
 
 export default authApi;

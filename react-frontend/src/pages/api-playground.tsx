@@ -64,7 +64,7 @@ function ApiPlaygroundPage() {
       <pre className="text-sm"></pre>
       <hr />
 
-      <h3 className="font-semibold">useProtectedMutation()</h3>
+      <h3 className="font-semibold">useVerifyTokenQuery()</h3>
       <pre className="text-sm"></pre>
       <hr />
 

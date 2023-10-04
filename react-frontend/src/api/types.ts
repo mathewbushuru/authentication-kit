@@ -4,6 +4,7 @@ export type User = {
   email: string;
   phoneNumber: string;
   emailNotifications: boolean;
+  emailVerified: boolean;
   createdAt: string;
   updatedAt: string;
 };

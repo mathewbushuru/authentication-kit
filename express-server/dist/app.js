@@ -6,8 +6,10 @@ import cors from "cors";
 // Routes imports
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
-dotenv.config();
+// Custom middleware imports
+import verifyToken from "./middleware/auth-jwt.js";
 const app = express();
+dotenv.config();
 // Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,7 +19,7 @@ app.get("/", (req, res, next) => {
     res.json({ message: "Welcome to AuthKit's API" });
 });
 app.use("/auth", authRoutes);
-app.use("/admin", adminRoutes);
+app.use("/admin", verifyToken, adminRoutes);
 app.use((req, res, next) => {
     const errorMessage = "404 Error - Not found";
     console.log(errorMessage);

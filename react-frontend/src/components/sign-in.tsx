@@ -42,7 +42,7 @@ function Signin() {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   const [loginTrigger, { isLoading }] = useLoginMutation();
 
@@ -50,9 +50,14 @@ function Signin() {
     const { usernameOrEmail: email, password } = formData;
     const loginData: LoginRequestType = { email, password };
     try {
-      const user = await loginTrigger(loginData).unwrap();
-      console.log(user);
-      dispatch(setCredentials({ user, token: crypto.randomUUID() }));
+      const loginResponse = await loginTrigger(loginData).unwrap();
+      console.log(loginResponse);
+      dispatch(
+        setCredentials({
+          user: loginResponse.userData,
+          token: loginResponse.jwtToken,
+        }),
+      );
       navigate("/api-playground");
     } catch (err: any) {
       console.log("An error occurred while logging in.");
@@ -60,8 +65,8 @@ function Signin() {
       toast({
         title: "Something went wrong",
         description: err?.data,
-        variant:"destructive"
-      })
+        variant: "destructive",
+      });
     }
   }
 

@@ -4,13 +4,25 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 
+// extend express  request or response types
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: number;
+    }
+  }
+}
+
 // Routes imports
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
 
-dotenv.config();
+// Custom middleware imports
+import verifyToken from "./middleware/auth-jwt.js";
 
 const app = express();
+
+dotenv.config();
 
 // Middleware
 app.use(cors());
@@ -22,7 +34,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.json({ message: "Welcome to AuthKit's API" });
 });
 app.use("/auth", authRoutes);
-app.use("/admin", adminRoutes);
+app.use("/admin", verifyToken, adminRoutes);
 app.use((req: Request, res: Response, next: NextFunction) => {
   const errorMessage = "404 Error - Not found";
   console.log(errorMessage);
