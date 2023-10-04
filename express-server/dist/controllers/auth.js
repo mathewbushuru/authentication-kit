@@ -57,7 +57,7 @@ export const postSignupController = async (req, res, next) => {
         return res.status(500).json(errorMessage);
     }
     const hashedReqDataPassword = await hashPassword(signupReqData.password);
-    createUser(signupReqData.username, signupReqData.email, hashedReqDataPassword, signupReqData.emailNotifications, signupReqData.phoneNumber)
+    createUser(signupReqData.username, signupReqData.email, hashedReqDataPassword, signupReqData.emailNotifications, signupReqData.phoneNumber, false)
         .then((createUserResponse) => {
         console.log("Sign up successful");
         const { hashedPassword, ...userDataWithoutPassword } = createUserResponse;

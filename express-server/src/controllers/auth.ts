@@ -86,7 +86,8 @@ export const postSignupController = async (
     signupReqData.email,
     hashedReqDataPassword,
     signupReqData.emailNotifications,
-    signupReqData.phoneNumber
+    signupReqData.phoneNumber,
+    false
   )
     .then((createUserResponse) => {
       console.log("Sign up successful");

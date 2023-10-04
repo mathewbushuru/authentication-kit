@@ -5,17 +5,25 @@ import { userType } from "../models/user.js";
 export async function createUser(
   username: string,
   email: string,
-  password: string,
+  hashedPassword: string,
   emailNotifications: boolean,
-  phoneNumber?: string
+  phoneNumber?: string,
+  emailVerified?: boolean
 ) {
   const response: any = await dbPool.query(
     `
         INSERT INTO users (
-            username, email, hashedPassword, phoneNumber, emailNotifications
-        ) VALUES (?,?,?,?,?)
+            username, email, hashedPassword, phoneNumber, emailNotifications, emailVerified
+        ) VALUES (?,?,?,?,?,?)
     `,
-    [username, email, password, phoneNumber || null, emailNotifications ? 1 : 0]
+    [
+      username,
+      email,
+      hashedPassword,
+      phoneNumber || null,
+      emailNotifications ? 1 : 0,
+      emailVerified ? 1 : 0,
+    ]
   );
   const id = response[0].insertId;
   return getUserById(id);
