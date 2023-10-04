@@ -1,0 +1,19 @@
+name: React Frontend Continuous Integration
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  all-cli-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: "18.12"
+      - run: cd react-frontend && yarn install
+      - run: cd react-frontend && yarn  build
