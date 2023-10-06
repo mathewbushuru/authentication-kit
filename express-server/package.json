@@ -8,9 +8,7 @@
     "start": "node ./dist/app.js",
     "dev": "nodemon ./src/app.ts",
     "build": "tsc",
-    "test": "yarn jest",
-    "test-watch": "yarn jest --watchAll",
-    "test-tdd": "yarn jest --watch"
+    "test": "tsc && yarn jest"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +22,9 @@
     "mysql2": "^3.6.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-typescript": "^7.23.0",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.14",
@@ -32,9 +33,9 @@
     "@types/jsonwebtoken": "^9.0.3",
     "@types/node": "^20.5.6",
     "@types/supertest": "^2.0.14",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "supertest": "^6.3.3",
-    "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   }
 }

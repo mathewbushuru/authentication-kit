@@ -17,3 +17,4 @@ jobs:
           node-version: "18.12"
       - run: cd express-server && yarn install
       - run: cd express-server && yarn  build
+      - run: cd express-server && yarn  test

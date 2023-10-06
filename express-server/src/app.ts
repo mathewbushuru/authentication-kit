@@ -45,11 +45,4 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ errorMessage: "Something went wrong", ...error });
 });
 
-// Start server
-app.listen(process.env.PORT || 3001, () => {
-  console.log(
-    `Authkit App's server running on port ${process.env.PORT || 3001}`
-  );
-});
-
 export default app;
