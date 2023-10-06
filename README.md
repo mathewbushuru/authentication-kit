@@ -33,7 +33,7 @@ Testing in the backend is implemented using `Jest` and `Supertest`. Main reason 
 
 `Frontend`: React + Vite, TypeScript, TailwindCSS, Redux, RTK Query
 
-`Backend`: NodeJS, ExpressJS, TypeScript, Jest
+`Backend`: NodeJS, ExpressJS, TypeScript, Jest, Supertest
 
 `Database`: MySQL
 
@@ -50,5 +50,5 @@ Testing in the backend is implemented using `Jest` and `Supertest`. Main reason 
 - [x] Sign up and log in flow using email and password.
 - [x] Hash password functionality using Bcrypt algorithm.
 - [x] JSON Web tokens - protected backend routes, verify expired/non-expired JWTs middleware, generate and replace any existing JWTs on successful login ,store in client's local storage.
-- [ ] Comprehensive tests for the backend using Jest.
+- [ ] Comprehensive tests for the backend using Jest and supertest.
 - [ ] Allow user to sign in by entering either their email or username in the same input.
