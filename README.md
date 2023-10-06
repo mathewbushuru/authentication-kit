@@ -25,6 +25,8 @@ A minor difference - the `salt` is not stored as a different column in the  data
 $[algorithm]$[cost]$[salt][hash]
 ```
 
+##### Testing
+
 ##### Tech Stack 
 
 `Frontend`: React + Vite, TypeScript, TailwindCSS, Redux, RTK Query
@@ -35,13 +37,13 @@ $[algorithm]$[cost]$[salt][hash]
 
 ##### Roadmap
 
-- [x] Configure MySQL database and express app. Sample stubbed routes for login and signup
+- [x] Configure MySQL database and express app. Stubbed routes for login and signup
 - [x] FE login and signup UI - Combination of Zod and react-hook-form for runtime type checking and optimized forms.
 - [x] BE error handling middleware.
 - [x] FE error handling - Global error and 404 pages. BE 404 catch-all route.
 - [x] FE state management using Redux. Configure Redux-Tookkit
 - [x] FE data fetching and caching layer using redux toolkit
-- [x] FE `/api-playground` for testing all RTKQ hooks
+- [x] FE `/api-playground` for testing all my custom RTKQ hooks
 - [x] Protected frontend routes implemented using React Router and Redux. For example, `/protected` can only be accessed when logged in
 - [x] Sign up and log in flow using email and password.
 - [x] Hash password functionality using Bcrypt algorithm.
