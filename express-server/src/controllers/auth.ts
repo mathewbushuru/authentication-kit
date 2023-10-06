@@ -6,7 +6,7 @@ import { hashPassword, checkUserPassword } from "../lib/auth.js";
 import { LoginDataType, SignupDataType } from "./types.js";
 
 /**
- * @desc: login user and (TODO:) generate token
+ * @desc: login user and generate JWT token
  * @listens: POST /auth/login
  * @access: public
  */

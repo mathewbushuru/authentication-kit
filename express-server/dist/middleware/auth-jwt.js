@@ -14,6 +14,7 @@ export default function verifyToken(req, res, next) {
     }
     catch (error) {
         const errorMessage = "Unauthorized - Wrong JWT token";
+        console.log(errorMessage);
         return res.status(401).json({ errorMessage, error });
     }
 }

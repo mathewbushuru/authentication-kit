@@ -16,7 +16,7 @@ This app uses token based authentication where we store the JSON Web  Token (JWT
 The diagram below shows how we store and validate the password in the backend.
 
 <p align="center">
-    <img src="./docs/how_it_works.jpg" width="500px" >
+    <img src="./docs/how_it_works.jpg" width="600px" >
 </p>
 
 A minor difference - the `salt` is not stored as a different column in the  database. It is stored in the hashedPassword column among other parameters as follows:
@@ -27,15 +27,24 @@ $[algorithm]$[cost]$[salt][hash]
 
 ##### Tech Stack 
 
-- [`TypeScript`](https://www.typescriptlang.org/) - Same language for both the frontend and backend.
+`Frontend`: React + Vite, TypeScript, TailwindCSS, Redux, RTK Query
 
-Frontend
-- [`React`](https://react.dev/) - frontend
-- [`TailwindCSS`](https://tailwindcss.com/) - styling
-- [`Redux / RTK Query`](https://redux-toolkit.js.org/) - state management, data fetching and caching
+`Backend`: NodeJS, ExpressJS, TypeScript, Jest
 
-Backend
-- [`Node / Express`](https://expressjs.com/) - backend framework
+`Database`: MySQL
 
-Database
-- [`MySQL`](https://www.mysql.com/) - Relational database
+##### Roadmap
+
+- [x] Configure MySQL database and express app. Sample stubbed routes for login and signup
+- [x] FE login and signup UI - Combination of Zod and react-hook-form for runtime type checking and optimized forms.
+- [x] BE error handling middleware.
+- [x] FE error handling - Global error and 404 pages. BE 404 catch-all route.
+- [x] FE state management using Redux. Configure Redux-Tookkit
+- [x] FE data fetching and caching layer using redux toolkit
+- [x] FE `/api-playground` for testing all RTKQ hooks
+- [x] Protected frontend routes implemented using React Router and Redux. For example, `/protected` can only be accessed when logged in
+- [x] Sign up and log in flow using email and password.
+- [x] Hash password functionality using Bcrypt algorithm.
+- [x] JSON Web tokens - protected backend routes, verify expired/non-expired JWTs middleware, generate and replace any existing JWTs on successful login ,store in client's local storage.
+- [ ] Comprehensive tests for the backend using Jest.
+- [ ] Allow user to sign in by entering either their email or username in the same input.

@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 import { type Request, type Response, type NextFunction } from "express";
 
 export default function verifyToken(
@@ -25,6 +25,7 @@ export default function verifyToken(
     next();
   } catch (error) {
     const errorMessage = "Unauthorized - Wrong JWT token";
+    console.log(errorMessage);
     return res.status(401).json({ errorMessage, error });
   }
 }

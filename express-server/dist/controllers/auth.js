@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { createUser, getUserById, getUserByEmail } from "../database/utils.js";
 import { hashPassword, checkUserPassword } from "../lib/auth.js";
 /**
- * @desc: login user and (TODO:) generate token
+ * @desc: login user and generate JWT token
  * @listens: POST /auth/login
  * @access: public
  */

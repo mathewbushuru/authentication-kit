@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-// extend express  request or response types
+// extend express request or response types
 declare global {
   namespace Express {
     interface Request {
