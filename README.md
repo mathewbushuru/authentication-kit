@@ -27,6 +27,8 @@ $[algorithm]$[cost]$[salt][hash]
 
 ##### Testing
 
+Testing in the backend is implemented using `Jest` and `Supertest`. Main reason for using Jest is it provides an all-in-one functionality where I get the test runner, assertion library and mocking capability from the same tool. For Supertest, it provides a high level abstraction for testing http. 
+
 ##### Tech Stack 
 
 `Frontend`: React + Vite, TypeScript, TailwindCSS, Redux, RTK Query
