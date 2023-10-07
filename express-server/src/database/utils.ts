@@ -43,7 +43,12 @@ export async function getUserById(id: number) {
     [id]
   );
   const userArr = dbResponse[0] as unknown as userType[];
-  const user = userArr[0];
+  let user: userType | null;
+  if (userArr.length) {
+    user = userArr[0];
+  } else {
+    user = null;
+  }
   return user;
 }
 
@@ -55,6 +60,11 @@ export async function getUserByEmail(email: string) {
     [email]
   );
   const userArr = dbResponse[0] as unknown as userType[];
-  const user = userArr[0];
+  let user: userType | null;
+  if (userArr.length) {
+    user = userArr[0];
+  } else {
+    user = null;
+  }
   return user;
 }

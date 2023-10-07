@@ -8,7 +8,9 @@
     "start": "node ./dist/server.js",
     "dev": "nodemon ./src/server.ts",
     "build": "tsc",
-    "test": "tsc && yarn jest"
+    "test": "tsc && yarn jest --silent",
+    "tdd": "tsc && yarn jest --watch --detectOpenHandles --silent",
+    "tdd-all": "tsc && yarn jest --watchAll --detectOpenHandles --silent"
   },
   "author": "",
   "license": "ISC",

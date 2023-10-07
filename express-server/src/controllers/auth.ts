@@ -101,6 +101,10 @@ export const postSignupController = async (
     false
   )
     .then((createUserResponse) => {
+      if (createUserResponse === null) {
+        const errorMessage = "There was an issue signing up. Try again";
+        return res.status(500).json({ errorMessage });
+      }
       console.log("Sign up successful");
       const { hashedPassword, ...userDataWithoutPassword } = createUserResponse;
       res.status(201).json(userDataWithoutPassword);
@@ -125,6 +129,10 @@ export const getVerifiedUserData = async (
     return res.status(401).json({ message: "Unauthorized - invalid token" });
   }
   const userData = await getUserById(userId);
+  if (userData === null) {
+    const errorMessage = "There was an error fetching user data. Try again";
+    return res.status(500).json({ errorMessage });
+  }
   const { hashedPassword, ...userDataWithoutPassword } = userData;
   console.log(userData);
   return res.json(userDataWithoutPassword);

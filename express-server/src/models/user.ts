@@ -40,7 +40,7 @@ export default class User implements userType {
   }
 
   saveToDb() {
-    // TODO:  Save user info to database
+    // [ ]  Save user info to database
   }
 
   updateEmail(newEmail: string) {

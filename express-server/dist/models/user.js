@@ -10,7 +10,7 @@ export default class User {
         this.updatedAt = updateddAt;
     }
     saveToDb() {
-        // TODO:  Save user info to database
+        // [ ]  Save user info to database
     }
     updateEmail(newEmail) {
         this.email = newEmail;

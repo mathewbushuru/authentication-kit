@@ -25,7 +25,13 @@ export async function getUserById(id) {
         SELECT * FROM users WHERE id=?;
     `, [id]);
     const userArr = dbResponse[0];
-    const user = userArr[0];
+    let user;
+    if (userArr.length) {
+        user = userArr[0];
+    }
+    else {
+        user = null;
+    }
     return user;
 }
 export async function getUserByEmail(email) {
@@ -33,6 +39,12 @@ export async function getUserByEmail(email) {
       SELECT * FROM users where email=?;
     `, [email]);
     const userArr = dbResponse[0];
-    const user = userArr[0];
+    let user;
+    if (userArr.length) {
+        user = userArr[0];
+    }
+    else {
+        user = null;
+    }
     return user;
 }

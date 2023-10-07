@@ -16,5 +16,9 @@ export const getAllUsersController = async (req, res) => {
 export const getUserByIdController = async (req, res) => {
     const id = +req.params.id;
     const userData = await getUserById(id);
+    if (userData === null) {
+        const errorMessage = "User not found";
+        return res.status(404).json({ errorMessage });
+    }
     res.json(userData);
 };
