@@ -20,20 +20,20 @@ export const postLoginController = async (
   if (!loginReqData.email) {
     const errorMessage = "Log in error, email is missing";
     console.error(errorMessage);
-    return res.status(400).json(errorMessage);
+    return res.status(400).json({ errorMessage });
   }
 
   if (!loginReqData.password) {
     const errorMessage = "Log in error, password is missing";
     console.error(errorMessage);
-    return res.status(400).json(errorMessage);
+    return res.status(400).json({ errorMessage });
   }
 
   const userData = await getUserByEmail(loginReqData.email);
   console.log(userData);
   if (!userData) {
     const errorMessage = "Log in error, no such user";
-    return res.status(401).json(errorMessage);
+    return res.status(401).json({ errorMessage });
   }
 
   const { hashedPassword, ...userDataWithoutPassword } = userData;
@@ -45,8 +45,7 @@ export const postLoginController = async (
   if (passwordMatches) {
     console.log("Login successful");
 
-    // const secondsToExpire = 24 * 60 * 60;
-    const secondsToExpire = 1 * 60;
+    const secondsToExpire = 24 * 60 * 60;
     const jwtToken = jwt.sign(
       { userId: userDataWithoutPassword.id },
       process.env.JWT_SECRET_KEY!,
@@ -56,7 +55,7 @@ export const postLoginController = async (
     res.json({ userData: userDataWithoutPassword, jwtToken });
   } else {
     const errorMessage = "Log in error, wrong password";
-    return res.status(401).json(errorMessage);
+    return res.status(401).json({ errorMessage });
   }
 };
 

@@ -1,4 +1,5 @@
 import dbPool from "./index.js";
+// [ ] Wrap db queries in trycatch
 export async function createUser(username, email, hashedPassword, emailNotifications, phoneNumber, emailVerified) {
     const response = await dbPool.query(`
         INSERT INTO users (

@@ -44,7 +44,7 @@ Testing in the backend is implemented using `Jest` and `Supertest`. Main reason 
 - [x] BE error handling middleware.
 - [x] FE error handling - Global error and 404 pages. BE 404 catch-all route.
 - [x] FE state management using Redux. Configure Redux-Tookkit
-- [x] FE data fetching and caching layer using redux toolkit
+- [x] FE data fetching and caching layer using RTK Query
 - [x] FE `/api-playground` for testing all my custom RTKQ hooks
 - [x] Protected frontend routes implemented using React Router and Redux. For example, `/protected` can only be accessed when logged in
 - [x] Sign up and log in flow using email and password.

@@ -2,6 +2,8 @@ import dbPool from "./index.js";
 
 import { userType } from "../models/user.js";
 
+// [ ] Wrap db queries in trycatch
+
 export async function createUser(
   username: string,
   email: string,
