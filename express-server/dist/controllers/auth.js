@@ -47,17 +47,17 @@ export const postSignupController = async (req, res, next) => {
     if (!signupReqData.email) {
         const errorMessage = "Sign up error, email is missing";
         console.error(errorMessage);
-        return res.status(500).json(errorMessage);
+        return res.status(400).json({ errorMessage });
     }
     if (!signupReqData.password) {
         const errorMessage = "Sign up error, password is missing";
         console.error(errorMessage);
-        return res.status(500).json(errorMessage);
+        return res.status(400).json({ errorMessage });
     }
     if (!signupReqData.username) {
         const errorMessage = "Sign up error, username is missing";
         console.error(errorMessage);
-        return res.status(500).json(errorMessage);
+        return res.status(400).json({ errorMessage });
     }
     const hashedReqDataPassword = await hashPassword(signupReqData.password);
     createUser(signupReqData.username, signupReqData.email, hashedReqDataPassword, signupReqData.emailNotifications, signupReqData.phoneNumber, false)
