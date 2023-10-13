@@ -27,8 +27,7 @@ describe("Admin routes", () => {
                 req.userId = 1;
                 next();
             });
-            // mock database response
-            getAllUsers.mockResolvedValue([
+            const allUsers = [
                 {
                     id: 1,
                     username: "matt",
@@ -51,33 +50,12 @@ describe("Admin routes", () => {
                     createdAt: "2023-10-04T05:30:40.000Z",
                     updatedAt: "2023-10-04T05:30:40.000Z",
                 },
-            ]);
+            ];
+            // mock database response
+            getAllUsers.mockResolvedValue(allUsers);
             const response = await request(app).get("/admin/all-users");
             expect(response.status).toBe(200);
-            expect(response.body).toEqual([
-                {
-                    id: 1,
-                    username: "matt",
-                    email: "matt@test.com",
-                    hashedPassword: "$2b$10$ejAQa8JhDYXLYapXWGBMVeO8lLOtt/CBZf51NpMkq0HZowbgZQETa",
-                    phoneNumber: "123-456-7890",
-                    emailNotifications: 1,
-                    emailVerified: 0,
-                    createdAt: "2023-10-04T01:48:29.000Z",
-                    updatedAt: "2023-10-04T01:48:29.000Z",
-                },
-                {
-                    id: 2,
-                    username: "mathew",
-                    email: "mathew@test.com",
-                    hashedPassword: "$2b$10$iSCS3B5TkLSVluFigswbJeVLuyjKuBJgLTOAGP4tkCZXHiGm7tChu",
-                    phoneNumber: null,
-                    emailNotifications: 0,
-                    emailVerified: 0,
-                    createdAt: "2023-10-04T05:30:40.000Z",
-                    updatedAt: "2023-10-04T05:30:40.000Z",
-                },
-            ]);
+            expect(response.body).toEqual(allUsers);
         });
         it("should reject when jwt token is missing", async () => {
             // mock middleware to simulate no token
@@ -104,7 +82,7 @@ describe("Admin routes", () => {
                 req.userId = 1;
                 next();
             });
-            getUserById.mockResolvedValue({
+            const user = {
                 id: 1,
                 username: "matt",
                 email: "matt@test.com",
@@ -114,20 +92,11 @@ describe("Admin routes", () => {
                 emailVerified: 0,
                 createdAt: "2023-10-04T01:48:29.000Z",
                 updatedAt: "2023-10-04T01:48:29.000Z",
-            });
+            };
+            getUserById.mockResolvedValue(user);
             const response = await request(app).get("/admin/user/1");
             expect(response.status).toBe(200);
-            expect(response.body).toEqual({
-                id: 1,
-                username: "matt",
-                email: "matt@test.com",
-                hashedPassword: "$2b$10$ejAQa8JhDYXLYapXWGBMVeO8lLOtt/CBZf51NpMkq0HZowbgZQETa",
-                phoneNumber: "123-456-7890",
-                emailNotifications: 1,
-                emailVerified: 0,
-                createdAt: "2023-10-04T01:48:29.000Z",
-                updatedAt: "2023-10-04T01:48:29.000Z",
-            });
+            expect(response.body).toEqual(user);
         });
         it("should reject when jwt token is missing", async () => {
             verifyToken.mockImplementation((req, res, next) => {

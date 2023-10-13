@@ -24,7 +24,7 @@ jest.mock("jsonwebtoken");
 describe("Auth routes", () => {
     describe("POST /auth/login", () => {
         it("should log in successfully and return user data and JWT token", async () => {
-            getUserByEmail.mockResolvedValue({
+            const user = {
                 id: 1,
                 username: "matt",
                 email: "matt@test.com",
@@ -34,7 +34,9 @@ describe("Auth routes", () => {
                 emailVerified: 0,
                 createdAt: "2023-10-04T01:48:29.000Z",
                 updatedAt: "2023-10-04T01:48:29.000Z",
-            });
+            };
+            const { hashedPassword, ...userDataWithoutPassword } = user;
+            getUserByEmail.mockResolvedValue(user);
             checkUserPassword.mockResolvedValue(true);
             jwt.sign.mockReturnValue("signedToken");
             const response = await request(app)
@@ -42,16 +44,7 @@ describe("Auth routes", () => {
                 .send({ email: "matt@test.com", password: "tester123" });
             expect(response.status).toBe(200);
             expect(response.body).toEqual({
-                userData: {
-                    id: 1,
-                    username: "matt",
-                    email: "matt@test.com",
-                    phoneNumber: "123-456-7890",
-                    emailNotifications: 1,
-                    emailVerified: 0,
-                    createdAt: "2023-10-04T01:48:29.000Z",
-                    updatedAt: "2023-10-04T01:48:29.000Z",
-                },
+                userData: userDataWithoutPassword,
                 jwtToken: "signedToken",
             });
         });
@@ -107,8 +100,7 @@ describe("Auth routes", () => {
     });
     describe("POST /auth/signup", () => {
         it("should sign up successfully and return user data without the password", async () => {
-            hashPassword.mockResolvedValue("$2b$10$ejAQa8JhDYXLYapXWGBMVeO8lLOtt/CBZf51NpMkq0HZowbgZQETa");
-            createUser.mockResolvedValue({
+            const user = {
                 id: 1,
                 username: "matt",
                 email: "matt@test.com",
@@ -118,23 +110,17 @@ describe("Auth routes", () => {
                 emailVerified: 0,
                 createdAt: "2023-10-04T01:48:29.000Z",
                 updatedAt: "2023-10-04T01:48:29.000Z",
-            });
+            };
+            const { hashedPassword, ...userDataWithoutPassword } = user;
+            hashPassword.mockResolvedValue(hashedPassword);
+            createUser.mockResolvedValue(user);
             const response = await request(app).post("/auth/signup").send({
                 email: "matt@test.com",
                 password: "tester123",
                 username: "matt",
             });
             expect(response.status).toBe(201);
-            expect(response.body).toEqual({
-                id: 1,
-                username: "matt",
-                email: "matt@test.com",
-                phoneNumber: "123-456-7890",
-                emailNotifications: 1,
-                emailVerified: 0,
-                createdAt: "2023-10-04T01:48:29.000Z",
-                updatedAt: "2023-10-04T01:48:29.000Z",
-            });
+            expect(response.body).toEqual(userDataWithoutPassword);
         });
         it("should not sign up in if email is missing", async () => {
             const response = await request(app)
