@@ -7,10 +7,13 @@ import {
   type User as UserResponseType,
 } from "@/api/types";
 
+// const DEV_URL = "http://127.0.0.1:5000";
+const PROD_URL = "https://auth-kit.onrender.com/";
+
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:5000",
+    baseUrl: PROD_URL,
     prepareHeaders: (headers, { getState }) => {
       // if we have a token in the store, use it for all authenticated requests
       const token = (getState() as RootState).auth.token;
