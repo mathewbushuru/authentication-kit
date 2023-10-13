@@ -64,7 +64,7 @@ function Signin() {
       console.error(err);
       toast({
         title: "Something went wrong",
-        description: err?.data,
+        description: err?.data?.errorMessage,
         variant: "destructive",
       });
     }

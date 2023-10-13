@@ -14,7 +14,7 @@ export async function createUser(
 ) {
   const response: any = await dbPool.query(
     `
-        INSERT INTO users (
+        INSERT INTO authkit_users (
             username, email, hashedPassword, phoneNumber, emailNotifications, emailVerified
         ) VALUES (?,?,?,?,?,?)
     `,
@@ -32,7 +32,7 @@ export async function createUser(
 }
 
 export async function getAllUsers() {
-  const dbResponse = await dbPool.query(`SELECT * FROM users;`);
+  const dbResponse = await dbPool.query(`SELECT * FROM authkit_users;`);
   const allUsersArr = dbResponse[0] as unknown as userType[];
   return allUsersArr;
 }
@@ -40,7 +40,7 @@ export async function getAllUsers() {
 export async function getUserById(id: number) {
   const dbResponse = await dbPool.query(
     `
-        SELECT * FROM users WHERE id=?;
+        SELECT * FROM authkit_users WHERE id=?;
     `,
     [id]
   );
@@ -57,7 +57,7 @@ export async function getUserById(id: number) {
 export async function getUserByEmail(email: string) {
   const dbResponse = await dbPool.query(
     `
-      SELECT * FROM users where email=?;
+      SELECT * FROM authkit_users where email=?;
     `,
     [email]
   );

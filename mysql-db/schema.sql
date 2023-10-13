@@ -11,8 +11,8 @@ USE authkitDB;
 SHOW TABLES;
 
 -- @block
-DROP TABLE IF EXISTS users;
-CREATE TABLE users (
+DROP TABLE IF EXISTS authkit_users;
+CREATE TABLE authkit_users (
     `id` BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL UNIQUE,
     `email` VARCHAR(255) NOT NULL UNIQUE,
@@ -25,10 +25,10 @@ CREATE TABLE users (
 );
 
 -- @block
-SELECT * from users;
+SELECT * from authkit_users;
 
 -- @block
-INSERT INTO users (
+INSERT INTO authkit_users (
     `username`,
     `email`,
     `hashedPassword`,
@@ -40,7 +40,7 @@ INSERT INTO users (
 );
 
 -- @block
-ALTER TABLE users
+ALTER TABLE authkit_users
     ADD COLUMN `newColumn` VARCHAR(255) NOT NULL,
     ADD COLUMN `newColumn2` VARCHAR(255) NOT NULL  UNIQUE;
 

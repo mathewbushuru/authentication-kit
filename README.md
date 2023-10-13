@@ -37,6 +37,14 @@ Testing in the backend is implemented using `Jest` and `Supertest`. Main reason 
 
 `Database`: MySQL
 
+##### Deployment
+
+`React Frontend`: Vercel, [authkit.mathewbushuru.com](https://authkit.mathewbushuru.com/)
+
+`Express Backend`: Render, [auth-kit.onrender.com](https://auth-kit.onrender.com/)
+
+`Database`: AWS via PlanetScale
+
 ##### Roadmap
 
 - [x] Configure MySQL database and express app. Stubbed routes for login and signup
@@ -51,4 +59,6 @@ Testing in the backend is implemented using `Jest` and `Supertest`. Main reason 
 - [x] Hash password functionality using Bcrypt algorithm.
 - [x] JSON Web tokens - protected backend routes, verify expired/non-expired JWTs middleware, generate and replace any existing JWTs on successful login ,store in client's local storage.
 - [x] Comprehensive tests for the backend using Jest and supertest.
-- [ ] Allow user to sign in by entering either their email or username in the same input.
+- [x] Sign out functionality
+- [x] Deploy express server on Render
+- [x] Deploy MySQL database on PlanetScale

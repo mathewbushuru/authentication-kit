@@ -2,7 +2,7 @@ import dbPool from "./index.js";
 // [ ] Wrap db queries in trycatch
 export async function createUser(username, email, hashedPassword, emailNotifications, phoneNumber, emailVerified) {
     const response = await dbPool.query(`
-        INSERT INTO users (
+        INSERT INTO authkit_users (
             username, email, hashedPassword, phoneNumber, emailNotifications, emailVerified
         ) VALUES (?,?,?,?,?,?)
     `, [
@@ -17,13 +17,13 @@ export async function createUser(username, email, hashedPassword, emailNotificat
     return getUserById(id);
 }
 export async function getAllUsers() {
-    const dbResponse = await dbPool.query(`SELECT * FROM users;`);
+    const dbResponse = await dbPool.query(`SELECT * FROM authkit_users;`);
     const allUsersArr = dbResponse[0];
     return allUsersArr;
 }
 export async function getUserById(id) {
     const dbResponse = await dbPool.query(`
-        SELECT * FROM users WHERE id=?;
+        SELECT * FROM authkit_users WHERE id=?;
     `, [id]);
     const userArr = dbResponse[0];
     let user;
@@ -37,7 +37,7 @@ export async function getUserById(id) {
 }
 export async function getUserByEmail(email) {
     const dbResponse = await dbPool.query(`
-      SELECT * FROM users where email=?;
+      SELECT * FROM authkit_users where email=?;
     `, [email]);
     const userArr = dbResponse[0];
     let user;
