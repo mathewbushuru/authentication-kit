@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import SignOut from "@/components/sign-out";
 import { useAppSelector } from "@/hooks/redux";
 import {
   useGetRootQuery,
@@ -31,6 +32,7 @@ function ApiPlaygroundPage() {
         <Button variant="secondary" onClick={() => navigate("/protected")}>
           Protected page
         </Button>
+        {currentUser.user && <SignOut />}
       </div>
       <hr />
 

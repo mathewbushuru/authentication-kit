@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import SignOut from "@/components/sign-out";
 import useAuth from "@/hooks/use-auth";
 
 function ProtectedPage() {
@@ -17,6 +18,7 @@ function ProtectedPage() {
         <Button variant="secondary" onClick={() => navigate("/protected")}>
           Protected page
         </Button>
+        <SignOut />
       </div>
       <pre className="text-sm">{JSON.stringify(user, null, 4)}</pre>
     </div>
